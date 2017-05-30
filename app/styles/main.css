@@ -1,0 +1,96 @@
+
+
+.gridster{
+    width: 100%;
+    position: relative;
+    overflow: auto;
+    min-height: 200px;
+}
+
+.box{
+    background-color: #DDD;
+    height: 80px;
+    padding: 2px 6px;
+    margin: 8px 0;
+    overflow: hidden;
+}
+
+.back-trans{
+    background: transparent!important;
+
+}
+
+.gridster li{
+    padding: 0;
+    background-color: red;
+}
+
+.gridster li .box{
+    margin: 0;
+    height: 100%;
+}
+
+.col{
+    padding-left: 8px!important;
+    padding-right: 8px!important;
+    
+}
+
+li{
+    display: block;
+}
+
+.control-panel{
+    background:  #EEE;
+    padding:  8px 16px ;
+}
+
+.gridster .preview-holder {
+    background: #666;
+}
+
+.ghost-grid{
+    margin-right: 10px;
+    margin-left: 6px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top:5px;
+}
+
+.ghost-grid div{
+    height: 72px;
+    padding: 8px!important;
+    margin-bottom: 18px;
+}
+.ghost-grid div .ghost-rec{
+    border: #aaa 2px dashed !important;
+
+}
+
+.btn-control-edit{
+    margin-right: 4px;
+}
+
+.options{
+    text-align: right;
+    padding: 12px;
+}
+
+.gs-resize-handle-both{
+    background-size: 30px 30px;
+    width: 30px;
+    height: 30px;
+    bottom: 0;
+    right: 0;
+    cursor: nwse-resize;
+}
+
+.box-label{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid-control{
+    height: calc(100% - 36px);
+}
