@@ -1,15 +1,16 @@
-import {ConfigDash} from './Config'
+import { ConfigDash } from './Config'
 
-export class ButtonDash {
+export class ToggleDash {
     static getId() {
-        return 'addButton'
+        return 'addToggle'
     };
 
-    static controlProperties(){
-        return  [
+    static controlProperties() {
+        return [
             { label: 'Nombre', name: 'name' },
             { label: 'Topico', name: 'topic' },
-            { label: 'Mensaje', name: 'msg' }
+            { label: 'Mensaje activo', name: 'msgOn' },
+            { label: 'Mensaje inactivo', name: 'msgOff' },
         ];
     }
 
@@ -17,18 +18,21 @@ export class ButtonDash {
         return `              
             <div class="col col-6 ">
                 <div class="box">
-                    <label for="buttonEx">Boton</label>
-                    <button type="button" id="${ButtonDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
+                    <label for="${ToggleDash.getId()}">Interruptor</label>
+                    <button type="button" id="${ToggleDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
                     <div class="mt-1">
-                        <button disabled id="buttonEx" type="button" class="btn btn-primary btn-block">Enviar</button>
+                        <label class="switch">
+                            <input disabled type="checkbox">
+                            <div class="slider round"></div>
+                        </label>
                     </div>
                 </div>
             </div>`;
     }
 
     static addControlEvent(callback) {
-        $(`#${ButtonDash.getId()}`).click(function () {
-            ButtonDash.addControl(null, callback);
+        $(`#${ToggleDash.getId()}`).click(function () {
+            ToggleDash.addControl(null, callback);
         })
     }
 
@@ -38,20 +42,21 @@ export class ButtonDash {
         if (!control) {
             control = {
                 id: ConfigDash.getGuid(),
-                type: 'button',
-                class: ConfigDash.controlersClass().indexOf(ButtonDash),
-                name: 'Boton',
+                type: 'toggle',
+                class: ConfigDash.controlersClass().indexOf(ToggleDash),
+                name: 'Interruptor',
                 topic: '/topic',
                 x: 0,
                 y: 0,
                 h: 1,
                 w: 2,
-                msg: 'on'
+                msgOn: 'on',
+                msgOff: 'off'
             }
             close = true;
         }
         $('.gridster ul').gridster().data('gridster').
-        add_widget(`
+            add_widget(`
         <li id="control-id-${control.id}">
             <div class="box">
                 <button data-id="${control.id}" type="button"  
@@ -65,13 +70,15 @@ export class ButtonDash {
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
                 <label class="box-label">${control.name}</label>
-                <button data-topic="${control.topic}" data-msg="${control.msg}" id="" 
-                type="button" class="btn btn-primary btn-block grid-control">Enviar</button>
+                <label class="switch">
+                    <input data-topic="${control.topic}" data-msg="${control.msg}" id="" type="checkbox">
+                    <div class="slider round"></div>
+                </label>
             </div>
         </li>`, control.w, control.h, control.x, control.y)
         if (close) {
             $('#addControlModal').modal('hide')
-            callback(control,true)
+            callback(control, true)
         }
     }
 }

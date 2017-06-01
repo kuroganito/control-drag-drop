@@ -1,15 +1,14 @@
 import {ConfigDash} from './Config'
 
-export class ButtonDash {
+export class LabelDash {
     static getId() {
-        return 'addButton'
+        return 'addLabel'
     };
 
     static controlProperties(){
         return  [
             { label: 'Nombre', name: 'name' },
-            { label: 'Topico', name: 'topic' },
-            { label: 'Mensaje', name: 'msg' }
+            { label: 'Topico', name: 'topic' }
         ];
     }
 
@@ -17,18 +16,18 @@ export class ButtonDash {
         return `              
             <div class="col col-6 ">
                 <div class="box">
-                    <label for="buttonEx">Boton</label>
-                    <button type="button" id="${ButtonDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
-                    <div class="mt-1">
-                        <button disabled id="buttonEx" type="button" class="btn btn-primary btn-block">Enviar</button>
+                    <label for="buttonEx">Mensaje</label>
+                    <button type="button" id="${LabelDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
+                    <div class="mt-1 text-center"><h3>
+                        <span class="badge badge-primary">Hola mundo</span></h3>
                     </div>
                 </div>
             </div>`;
     }
 
     static addControlEvent(callback) {
-        $(`#${ButtonDash.getId()}`).click(function () {
-            ButtonDash.addControl(null, callback);
+        $(`#${LabelDash.getId()}`).click(function () {
+            LabelDash.addControl(null, callback);
         })
     }
 
@@ -38,15 +37,16 @@ export class ButtonDash {
         if (!control) {
             control = {
                 id: ConfigDash.getGuid(),
-                type: 'button',
-                class: ConfigDash.controlersClass().indexOf(ButtonDash),
-                name: 'Boton',
+                type: 'Label',
+                class: ConfigDash.controlersClass().indexOf(LabelDash),
+                name: 'Mensaje',
                 topic: '/topic',
                 x: 0,
                 y: 0,
                 h: 1,
                 w: 2,
-                msg: 'on'
+                msg: 'on',
+                val:'Hola mundo'
             }
             close = true;
         }
@@ -65,8 +65,10 @@ export class ButtonDash {
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
                 <label class="box-label">${control.name}</label>
-                <button data-topic="${control.topic}" data-msg="${control.msg}" id="" 
-                type="button" class="btn btn-primary btn-block grid-control">Enviar</button>
+                <div class="text-center"><h3>
+                    <span class="badge badge-primary">${control.val}</span></h3>
+                </div>
+
             </div>
         </li>`, control.w, control.h, control.x, control.y)
         if (close) {

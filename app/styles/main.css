@@ -86,11 +86,4 @@ li{
     cursor: nwse-resize;
 }
 
-.box-label{
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
-.grid-control{
-    height: calc(100% - 36px);
-}

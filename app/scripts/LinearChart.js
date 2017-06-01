@@ -1,34 +1,42 @@
 import {ConfigDash} from './Config'
+import Chart from 'chart.js';
 
-export class ButtonDash {
+export class LinearChartDash {
     static getId() {
-        return 'addButton'
+        return 'addLinearChart'
     };
 
     static controlProperties(){
         return  [
             { label: 'Nombre', name: 'name' },
-            { label: 'Topico', name: 'topic' },
-            { label: 'Mensaje', name: 'msg' }
+            { label: 'Topico', name: 'topic' }
         ];
     }
 
     static getLayout() {
+        var myChart = new Chart($("#sampleChart"),
+         {type:'line',
+          data:{
+               labels: ["January", "February", "March", "April", "May", "June", "July"],
+              data: [0,1,2,3,4,2,1,2,3],
+          }  });
         return `              
             <div class="col col-6 ">
                 <div class="box">
-                    <label for="buttonEx">Boton</label>
-                    <button type="button" id="${ButtonDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
-                    <div class="mt-1">
-                        <button disabled id="buttonEx" type="button" class="btn btn-primary btn-block">Enviar</button>
+                    <label for="buttonEx">Grafica linear</label>
+                    <button type="button" id="${LinearChartDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
+                    <div class="mt-1 text-center"><h3>
+                       <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+                            <canvas id="sampleChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>`;
     }
 
     static addControlEvent(callback) {
-        $(`#${ButtonDash.getId()}`).click(function () {
-            ButtonDash.addControl(null, callback);
+        $(`#${LinearChartDash.getId()}`).click(function () {
+            LinearChartDash.addControl(null, callback);
         })
     }
 
@@ -38,15 +46,16 @@ export class ButtonDash {
         if (!control) {
             control = {
                 id: ConfigDash.getGuid(),
-                type: 'button',
-                class: ConfigDash.controlersClass().indexOf(ButtonDash),
-                name: 'Boton',
+                type: 'LinearChart',
+                class: ConfigDash.controlersClass().indexOf(LinearChartDash),
+                name: 'Grafica',
                 topic: '/topic',
                 x: 0,
                 y: 0,
                 h: 1,
                 w: 2,
-                msg: 'on'
+                msg: 'on',
+                val:'Hola mundo'
             }
             close = true;
         }
@@ -65,10 +74,17 @@ export class ButtonDash {
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
                 <label class="box-label">${control.name}</label>
-                <button data-topic="${control.topic}" data-msg="${control.msg}" id="" 
-                type="button" class="btn btn-primary btn-block grid-control">Enviar</button>
+                <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+                        <canvas id="chart-${control.id}"></canvas>
+                </div>
+
             </div>
         </li>`, control.w, control.h, control.x, control.y)
+         var myChart = new Chart($(`#chart-${control.id}`),
+         {type:'line',
+          data:{
+              data: [0,1,2,3,4,2,1,2,3],
+          }  });
         if (close) {
             $('#addControlModal').modal('hide')
             callback(control,true)

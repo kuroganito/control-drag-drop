@@ -1,15 +1,14 @@
 import {ConfigDash} from './Config'
 
-export class ButtonDash {
+export class DateDash {
     static getId() {
-        return 'addButton'
+        return 'addDate'
     };
 
     static controlProperties(){
         return  [
             { label: 'Nombre', name: 'name' },
             { label: 'Topico', name: 'topic' },
-            { label: 'Mensaje', name: 'msg' }
         ];
     }
 
@@ -17,36 +16,34 @@ export class ButtonDash {
         return `              
             <div class="col col-6 ">
                 <div class="box">
-                    <label for="buttonEx">Boton</label>
-                    <button type="button" id="${ButtonDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
+                    <label for="buttonEx">Fecha</label>
+                    <button type="button" id="${DateDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
                     <div class="mt-1">
-                        <button disabled id="buttonEx" type="button" class="btn btn-primary btn-block">Enviar</button>
+                        <input disabled type="date"/>
                     </div>
                 </div>
             </div>`;
     }
 
     static addControlEvent(callback) {
-        $(`#${ButtonDash.getId()}`).click(function () {
-            ButtonDash.addControl(null, callback);
+        $(`#${DateDash.getId()}`).click(function () {
+            DateDash.addControl(null, callback);
         })
     }
 
     static addControl(control, callback) {
         var close = false;
-        console.log()
         if (!control) {
             control = {
                 id: ConfigDash.getGuid(),
-                type: 'button',
-                class: ConfigDash.controlersClass().indexOf(ButtonDash),
-                name: 'Boton',
+                type: 'date',
+                class: ConfigDash.controlersClass().indexOf(DateDash),
+                name: 'Fecha',
                 topic: '/topic',
                 x: 0,
                 y: 0,
                 h: 1,
-                w: 2,
-                msg: 'on'
+                w: 2
             }
             close = true;
         }
@@ -65,8 +62,9 @@ export class ButtonDash {
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
                 <label class="box-label">${control.name}</label>
-                <button data-topic="${control.topic}" data-msg="${control.msg}" id="" 
-                type="button" class="btn btn-primary btn-block grid-control">Enviar</button>
+                 <div class="date-content">
+                    <input  class="" data-topic="${control.topic}"  type="date"/>
+                 </div>   
             </div>
         </li>`, control.w, control.h, control.x, control.y)
         if (close) {

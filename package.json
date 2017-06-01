@@ -48,5 +48,8 @@
         "single"
       ]
     }
+  },
+  "dependencies": {
+    "chart.js": "^2.6.0"
   }
 }

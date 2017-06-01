@@ -3,8 +3,17 @@ import {ConfigDash} from './Config'
 export class TextDash{
 
     static getId(){
-        return "addText"
+        return 'addText'
     };    
+
+    static controlProperties(){
+        return  [
+            { label: 'Nombre', name: 'name' },
+            { label: 'Topico', name: 'topic' },
+        ];
+    }
+
+
     static getLayout(){
         return `              
             <div class="col col-6">
@@ -37,9 +46,10 @@ export class TextDash{
         if (!control) {
             control = {
                 id: ConfigDash.getGuid(),
-                type: "text",
-                name: "Texto",
-                topic: "/topic",
+                type: 'text',
+                class:ConfigDash.controlersClass().indexOf(TextDash),
+                name: 'Texto',
+                topic: '/topic',
                 x: 0,
                 y: 0,
                 h: 1,
@@ -48,7 +58,7 @@ export class TextDash{
         
             close = true;
         }
-        $(".gridster ul").gridster().data('gridster').
+        $('.gridster ul').gridster().data('gridster').
         add_widget(`<li id="control-id-${control.id}">
             <div class="box">
             <button data-id="${control.id}" type="button" class="btn btn-sm float-right btn-outline-primary btn-control-delete"
@@ -58,7 +68,7 @@ export class TextDash{
             <div class="form-group">
             <label class="box-label for="textEx">${control.name}</label>
             <div class="">
-            <div class="input-group">
+            <div class="input-group text-container">
             <textarea style="overflow:auto;resize:none" type="text" class="form-control grid-control"></textarea>
             <span class="input-group-btn">
             <button  data-topic="${control.topic}"
@@ -71,8 +81,7 @@ export class TextDash{
             </li>`, control.w, control.h, control.x, control.y);
         if (close) {
             $('#addControlModal').modal('hide')
-            $(`#control-id-${control.id}  .btn-control-edit`).trigger("click")
-            callback(control)
+            callback(control,true)
         }
     } 
 }

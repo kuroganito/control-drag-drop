@@ -1,15 +1,16 @@
 import {ConfigDash} from './Config'
 
-export class ButtonDash {
+export class RangeDash {
     static getId() {
-        return 'addButton'
+        return 'addRange'
     };
 
     static controlProperties(){
         return  [
             { label: 'Nombre', name: 'name' },
             { label: 'Topico', name: 'topic' },
-            { label: 'Mensaje', name: 'msg' }
+            { label: 'Valor minimo', name: 'min' },
+            { label: 'Valor maximo', name: 'max' }
         ];
     }
 
@@ -17,36 +18,36 @@ export class ButtonDash {
         return `              
             <div class="col col-6 ">
                 <div class="box">
-                    <label for="buttonEx">Boton</label>
-                    <button type="button" id="${ButtonDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
+                    <label for="buttonEx">Rango</label>
+                    <button type="button" id="${RangeDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
                     <div class="mt-1">
-                        <button disabled id="buttonEx" type="button" class="btn btn-primary btn-block">Enviar</button>
+                        <input disabled type="range"/>
                     </div>
                 </div>
             </div>`;
     }
 
     static addControlEvent(callback) {
-        $(`#${ButtonDash.getId()}`).click(function () {
-            ButtonDash.addControl(null, callback);
+        $(`#${RangeDash.getId()}`).click(function () {
+            RangeDash.addControl(null, callback);
         })
     }
 
     static addControl(control, callback) {
         var close = false;
-        console.log()
         if (!control) {
             control = {
                 id: ConfigDash.getGuid(),
-                type: 'button',
-                class: ConfigDash.controlersClass().indexOf(ButtonDash),
-                name: 'Boton',
+                type: 'range',
+                class: ConfigDash.controlersClass().indexOf(RangeDash),
+                name: 'Rango',
                 topic: '/topic',
                 x: 0,
                 y: 0,
                 h: 1,
                 w: 2,
-                msg: 'on'
+                min: 1,
+                max:10
             }
             close = true;
         }
@@ -65,8 +66,7 @@ export class ButtonDash {
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
                 <label class="box-label">${control.name}</label>
-                <button data-topic="${control.topic}" data-msg="${control.msg}" id="" 
-                type="button" class="btn btn-primary btn-block grid-control">Enviar</button>
+                <input data-topic="${control.topic}"  type="range"/>
             </div>
         </li>`, control.w, control.h, control.x, control.y)
         if (close) {

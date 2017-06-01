@@ -5,7 +5,8 @@
     "bootstrap": "~4.0.0-alpha.6",
     "modernizr": "~2.8.1",
     "gridster": "gridster-js#^0.7.0",
-    "components-font-awesome": "^4.7.0"
+    "components-font-awesome": "^4.7.0",
+    "chart.js": "^2.6.0"
   },
   "overrides": {
     "bootstrap": {
