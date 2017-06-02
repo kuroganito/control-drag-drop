@@ -14,12 +14,6 @@ export class LinearChartDash {
     }
 
     static getLayout() {
-        var myChart = new Chart($("#sampleChart"),
-         {type:'line',
-          data:{
-               labels: ["January", "February", "March", "April", "May", "June", "July"],
-              data: [0,1,2,3,4,2,1,2,3],
-          }  });
         return `              
             <div class="col col-6 ">
                 <div class="box">
@@ -83,7 +77,8 @@ export class LinearChartDash {
          var myChart = new Chart($(`#chart-${control.id}`),
          {type:'line',
           data:{
-              data: [0,1,2,3,4,2,1,2,3],
+              labels: ["January", "February", "March", "April", "May", "June", "July"],
+              data: [0,1,2,3,4,2,1],
           }  });
         if (close) {
             $('#addControlModal').modal('hide')
