@@ -92,3 +92,9 @@ input[type=range]::-ms-fill-upper {
 input[type=range]:focus::-ms-fill-upper {
   background: #0275d8;
 }
+
+.range-value{
+  position: absolute;
+    top: 2px;
+    right: 8px;
+}

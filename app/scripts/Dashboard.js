@@ -136,6 +136,7 @@ export class Dashboard {
             ConfigDash.controlersClass()[control.class].controlProperties().forEach((d)=>{
                 control[d.name] = $(`#control-data-${d.name}`).val()
             })
+            ConfigDash.controlersClass()[control.class].updateControl(control);
             this.updateSizePotition();
             $('#editControlModal').modal('hide')
         })
@@ -175,7 +176,7 @@ export class Dashboard {
         $('#buttonAdd').show();
         $('.btn-control-edit').show();
         $('.btn-control-delete').show();
-
+        $('.grid-control').attr('disabled',true)
         $('.controls').slideDown();
         $('.gridster ul').gridster().data('gridster').enable().enable_resize();
         $('.ghost-grid').show();
@@ -191,6 +192,7 @@ export class Dashboard {
         $('.btn-control-edit').hide();
         $('.btn-control-delete').hide();
         $('.controls').slideUp();
+        $('.grid-control').attr('disabled',false)
         $('.gridster ul').gridster().data('gridster').disable().disable_resize();
         $('.ghost-grid').hide();
         $('.control-panel').addClass('back-trans');

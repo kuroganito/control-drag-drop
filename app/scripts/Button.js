@@ -20,7 +20,7 @@ export class ButtonDash {
                     <label for="buttonEx">Boton</label>
                     <button type="button" id="${ButtonDash.getId()}" class="btn btn-sm float-right btn-outline-primary">Agregar</button>
                     <div class="mt-1">
-                        <button disabled id="buttonEx" type="button" class="btn btn-primary btn-block">Enviar</button>
+                        <button disabled="disabled" id="buttonEx" type="button" class="btn btn-primary btn-block">Enviar</button>
                     </div>
                 </div>
             </div>`;
@@ -31,6 +31,14 @@ export class ButtonDash {
             ButtonDash.addControl(null, callback);
         })
     }
+
+    static updateControl(control) {
+        console.log(control)
+        $(`#control-id-${control.id} .box-label`).html(control.name)
+        $(`#control-id-${control.id} .button-control`).data('topic',control.topic)
+        $(`#control-id-${control.id} .button-control`).data('msg',control.msg)
+    }
+
 
     static addControl(control, callback) {
         var close = false;
@@ -65,10 +73,29 @@ export class ButtonDash {
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
                 <label class="box-label">${control.name}</label>
-                <button data-topic="${control.topic}" data-msg="${control.msg}" id="" 
-                type="button" class="btn btn-primary btn-block grid-control">Enviar</button>
+                <button data-topic="${control.topic}" data-msg="${control.msg}"
+                type="button" ${close?'disabled':''} class="btn btn-primary btn-block grid-control button-control">Enviar</button>
             </div>
         </li>`, control.w, control.h, control.x, control.y)
+
+        $(`#control-id-${control.id} .button-control`).mousedown(()=>{
+            var button = $(`#control-id-${control.id} .button-control`);
+            ////////////////////// Enviar a cloudino mousedown
+            console.log('Enviando a cloudino.io')
+            console.log('Topic: ', button.data('topic'))
+            console.log('Mensaje: ', button.data('msg'))
+        })
+
+        $(`#control-id-${control.id} .button-control`).mouseup(()=>{
+            var button = $(`#control-id-${control.id} .button-control`);
+            ////////////////////// Enviar a cloudino mouseup
+            console.log('Enviando a cloudino.io')
+            console.log('Topic: ', button.data('topic'))
+            console.log('Mensaje: ', 'off')
+        })
+        
+
+
         if (close) {
             $('#addControlModal').modal('hide')
             callback(control,true)

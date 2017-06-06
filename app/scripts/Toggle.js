@@ -35,7 +35,13 @@ export class ToggleDash {
             ToggleDash.addControl(null, callback);
         })
     }
-
+    static updateControl(control) {
+        console.log(control)
+        $(`#control-id-${control.id} .box-label`).html(control.name)
+        $(`#control-id-${control.id} .toggle-control`).data('topic', control.topic)
+        $(`#control-id-${control.id} .toggle-control`).data('msgon', control.msgOn)
+        $(`#control-id-${control.id} .toggle-control`).data('msgoff', control.msgOff)
+    }
     static addControl(control, callback) {
         var close = false;
         console.log()
@@ -71,11 +77,23 @@ export class ToggleDash {
                 </button>
                 <label class="box-label">${control.name}</label>
                 <label class="switch">
-                    <input data-topic="${control.topic}" data-msg="${control.msg}" id="" type="checkbox">
+                    <input  ${close ? 'disabled' : ''} class="toggle-control grid-control" 
+                    data-topic="${control.topic}" data-msgon="${control.msgOn}" data-msgoff="${control.msgOff}"  type="checkbox">
                     <div class="slider round"></div>
                 </label>
             </div>
         </li>`, control.w, control.h, control.x, control.y)
+        $(`#control-id-${control.id} .toggle-control`).change(() => {
+            var toggle = $(`#control-id-${control.id} .toggle-control`);
+            ////////////////////// Enviar a cloudino change
+            console.log('Enviando a cloudino.io')
+            console.log('Topic: ', toggle.data('topic'))
+            if (toggle.is(':checked')) {
+                console.log('Mensaje: ', toggle.data('msgon'))
+            } else {
+                console.log('Mensaje: ', toggle.data('msgoff'))
+            }
+        })
         if (close) {
             $('#addControlModal').modal('hide')
             callback(control, true)

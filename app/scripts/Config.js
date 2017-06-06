@@ -21,7 +21,8 @@ export class ConfigDash {
             { label: 'Mensaje activo', name: 'msgOn' },
             { label: 'Mensaje inactivo', name: 'msgOff' },
             { label: 'Valor minimo', name: 'min' },
-            { label: 'Valor maximo', name: 'max' }
+            { label: 'Valor maximo', name: 'max' },
+            { label: 'Incremento', name: 'step' }
         ];
     }
 

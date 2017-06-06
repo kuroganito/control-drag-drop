@@ -30,7 +30,12 @@ export class TimeDash {
             TimeDash.addControl(null, callback);
         })
     }
-
+    static updateControl(control) {
+        console.log(control)
+        /*$(`#control-id-${control.id} .box-label`).html(control.name)
+        $(`#control-id-${control.id} .button-control`).data("topic",control.topic)
+        $(`#control-id-${control.id} .button-control`).data("msg",control.msg)*/
+    }
     static addControl(control, callback) {
         var close = false;
         if (!control) {
